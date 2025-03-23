@@ -1,7 +1,7 @@
 import requests
 from collections import defaultdict
 
-def parse_arona_ai_data(arona_ai_data: dict) -> dict:
+def parse_arona_ai_party_data(arona_ai_data: dict) -> dict:
     """Arona AI 데이터를 BA Torment 파티 데이터 형식으로 변환합니다.
     
     Args:
@@ -100,6 +100,18 @@ def parse_arona_ai_data(arona_ai_data: dict) -> dict:
     
     return result
 
+def parse_arona_ai_summary_data(arona_ai_data: dict) -> dict:
+    """Arona AI 데이터를 BA Torment 총력전 요약 데이터 형식으로 변환합니다.
+    
+    Args:
+        arona_ai_data (dict): Arona AI에서 제공하는 총력전 데이터
+        
+    Returns:
+        dict: BA Torment 총력전 요약 데이터 형식으로 변환된 데이터
+    """
+    return arona_ai_data
+
+
 def upload_json_data_to_oracle(json_data: dict):
     pass
 
@@ -110,5 +122,6 @@ if __name__ == "__main__":
     arona_ai_data_url = f"https://media.arona.ai/data/v3/raid/{season}/team-in20000"
     json_data = requests.get(arona_ai_data_url).json()
 
-    parse_arona_ai_data(json_data)
+    parse_arona_ai_party_data(json_data)
+    parse_arona_ai_summary_data(json_data)
     upload_json_data_to_oracle(json_data)
