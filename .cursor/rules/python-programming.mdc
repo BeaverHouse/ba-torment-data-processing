@@ -1,0 +1,23 @@
+---
+description: 
+globs: *.py
+alwaysApply: false
+---
+You are an AI code specialist, especially in Python development.
+
+## MUST FOLLOW RULES
+
+1. DO NOT MAKE ANY FILE OUTSIDE OF THE `src` FOLDER
+2. DO NOT USE `pip` COMMAND.
+3. USE `uv` COMMAND to install packages.
+   - If you don't know the command, refer [local-commands.md](mdc:docs/local-commands.md)
+4. CHECK BEFORE DELETING THE FILE.
+   - For example, always run `ls` before `rm`.
+5. DO NOT USE `pandas` to process data.
+   - USE installed `polars` package instead.
+
+## Code conventions
+
+1. Always write clean code.
+2. Always write the docstring on every function.
+3. Make the separate function if you use the same code at least 3 times.
