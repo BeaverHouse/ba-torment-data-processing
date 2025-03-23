@@ -32,10 +32,29 @@ def test_arona_ai():
 
     parsed_data = parse_arona_ai_data(arona_ai_data)
 
-    # 두 데이터를 정렬된 문자열로 변환하여 비교
-    parsed_json_str = json.dumps(parsed_data, sort_keys=True)
-    expected_json_str = json.dumps(ba_torment_party_data, sort_keys=True)
-    assert parsed_json_str == expected_json_str, "JSON 데이터가 일치하지 않습니다."
+    # 각 필드별로 직접 비교하여 성능 개선
+    # 필터 데이터를 키로 정렬하여 비교
+    sorted_parsed_filters = dict(sorted(parsed_data["filters"].items()))
+    sorted_expected_filters = dict(sorted(ba_torment_party_data["filters"].items()))
+    assert sorted_parsed_filters == sorted_expected_filters, "필터 데이터가 일치하지 않습니다"
+
+    # 어시스트 필터 데이터를 키로 정렬하여 비교 
+    sorted_parsed_assist = dict(sorted(parsed_data["assist_filters"].items()))
+    sorted_expected_assist = dict(sorted(ba_torment_party_data["assist_filters"].items()))
+    assert sorted_parsed_assist == sorted_expected_assist, "어시스트 필터 데이터가 일치하지 않습니다"
+    print("필터 데이터 비교 완료")
+
+    assert parsed_data["min_partys"] == ba_torment_party_data["min_partys"], "최소 파티 수가 일치하지 않습니다"
+    assert parsed_data["max_partys"] == ba_torment_party_data["max_partys"], "최대 파티 수가 일치하지 않습니다"
+    print("최소, 최대 파티 수 비교 완료")
+    
+    assert len(parsed_data["parties"]) == len(ba_torment_party_data["parties"]), "파티 데이터 개수가 일치하지 않습니다"
+    print("파티 데이터 개수 비교 완료")
+    
+    for i, (parsed_party, expected_party) in enumerate(zip(parsed_data["parties"], ba_torment_party_data["parties"])):
+        assert parsed_party == expected_party, f"{i+1}번째 파티 데이터가 일치하지 않습니다"
+        if i % 1000 == 0:
+            print(f"{i+1}번째 파티 데이터 비교 완료")
 
 if __name__ == "__main__":
     test_arona_ai()
