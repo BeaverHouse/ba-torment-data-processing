@@ -17,7 +17,7 @@ def parse_arona_ai_party_data(arona_ai_data: dict) -> dict:
     parties = []
     
     # 각 파티 데이터 처리
-    for rank_data in arona_ai_data["d"]:
+    for idx, rank_data in enumerate(arona_ai_data["d"]):
         rank = rank_data["r"]
         score = rank_data["s"]
         
@@ -83,7 +83,7 @@ def parse_arona_ai_party_data(arona_ai_data: dict) -> dict:
         party_info = {
             "FINAL_RANK": rank,
             "SCORE": score,
-            "USER_ID": -1,
+            "USER_ID": -(idx + 1),
             "LEVEL": "L" if score >= 44000000 else "T" if score >= 31076000 else "I",
             "PARTY_DATA": dict(party_data),
             "TORMENT_RANK": rank
