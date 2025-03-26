@@ -1,6 +1,7 @@
 <p align="center">
   <a href="https://github.com/BeaverHouse/ba-torment-data-update">
     <img src="logo.png" alt="Logo" width="100" height="100"> 
+    <!-- Logo from https://www.flaticon.com/free-icon/optimizing_12263199?term=maintenance&page=1&position=2&origin=search&related_id=12263199 -->
   </a>
 
   <p align="center">
