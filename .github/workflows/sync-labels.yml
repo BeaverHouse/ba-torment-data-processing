@@ -7,6 +7,10 @@ on:
     paths:
       - .github/labels.yml
 
+permissions:
+  issues: write
+  contents: read
+
 jobs:
   build:
     runs-on: ubuntu-latest
