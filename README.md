@@ -1,11 +1,11 @@
 <p align="center">
-  <a href="https://github.com/BeaverHouse/ba-torment-data-update">
+  <a href="https://github.com/BeaverHouse/ba-torment-data-processing">
     <img src="logo.png" alt="Logo" width="100" height="100"> 
     <!-- Logo from https://www.flaticon.com/free-icon/optimizing_12263199?term=maintenance&page=1&position=2&origin=search&related_id=12263199 -->
   </a>
 
   <p align="center">
-    Data update script for BA Torment
+    Data processing script for BA Torment
   </p>
 
   <p align="center">
@@ -22,7 +22,7 @@
       <img src="https://img.shields.io/badge/Cursor-000000.svg?style=flat&logo=Cursor&logoColor=white" alt="Cursor">
     </a>
     <a href="./LICENSE">
-      <img src="https://img.shields.io/github/license/BeaverHouse/ba-torment-data-update" alt="License">
+      <img src="https://img.shields.io/github/license/BeaverHouse/ba-torment-data-processing" alt="License">
     </a>
   </p>
 </p>
@@ -43,7 +43,7 @@ Python script to update the data of the [BA Torment](https://bluearchive-torment
 
 ## Documentation
 
-WIP
+- [Commands for local development](./docs/local-commands.md)
 
 ## Contributing
 

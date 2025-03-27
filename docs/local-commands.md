@@ -1,4 +1,4 @@
-# Local Commands
+# Commands for local development
 
 ## Prerequisites
 
