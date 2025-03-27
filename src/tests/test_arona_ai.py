@@ -1,6 +1,6 @@
 import json
 import os
-from arona_ai.run import parse_arona_ai_party_data, parse_arona_ai_summary_data
+from parse_arona_ai.run import parse_arona_ai_party_data, parse_arona_ai_summary_data
 
 def test_arona_ai_party_data():
     """This function test can be run using the following command:
