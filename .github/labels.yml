@@ -19,6 +19,6 @@
 - name: "Refactor"
   color: 000000
 - name: "Chore"
-  color: FEFAE0
+  color: FFFDDC
 - name: "Test"
   color: F6B26B
