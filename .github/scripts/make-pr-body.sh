@@ -76,13 +76,14 @@ BODY=$(cat <<-END
 $COMMIT_BODY
 
 ### Reference
+
 #$ISSUE_NUMBER
 END
 )
 
 # Add external links if any
 if [ ! -z "$EXTERNAL_LINKS" ]; then
-    BODY="$BODY"$'\n\n'"$EXTERNAL_LINKS"
+    BODY="$BODY"$'\n'"$EXTERNAL_LINKS"
 fi
 
 echo "Body: "
