@@ -6,7 +6,7 @@ ISSUE_NUMBER=$(echo "$BRANCH" | grep -o '^[0-9]*')
 
 # Check if branch exists
 if ! git show-ref --verify --quiet refs/heads/$BRANCH; then
-    echo "Error: Branch $BRANCH does not exist" >&2 # Send to stderr
+    echo "Error: Branch $BRANCH does not exist" >&2
     return 1
 fi
 
@@ -100,6 +100,6 @@ fi
 
 git checkout $BASE_BRANCH >&2
 
-echo "Body: " >&2 # Send to stderr
-echo "$BODY"  >&2 # Send to stderr
-echo "$BODY"
+echo "Body: " >&2
+echo "$BODY"  >&2
+echo "$BODY" # Only output to stdout
