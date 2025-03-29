@@ -4,14 +4,24 @@ BRANCH=$1
 
 ISSUE_NUMBER=$(echo "$BRANCH" | grep -o '^[0-9]*')
 
+# Check if branch exists
+if ! git show-ref --verify --quiet refs/heads/$BRANCH; then
+    echo "Error: Branch $BRANCH does not exist" >&2 # Send to stderr
+    return 1
+fi
+
 # Get the commits with message between main and the branch
 # If fails, retry with origin/master
 BASE_BRANCH="main"
-COMMITS=$(git log --oneline origin/$BASE_BRANCH..$BRANCH)
+COMMITS=$(git log --oneline origin/$BASE_BRANCH..$BRANCH 2>/dev/null || true)
 if [ -z "$COMMITS" ]; then
     echo "Failed to get commits between origin/$BASE_BRANCH and $BRANCH, retry with origin/master" >&2 # Send to stderr
     BASE_BRANCH="master"
-    COMMITS=$(git log --oneline origin/$BASE_BRANCH..$BRANCH)
+    COMMITS=$(git log --oneline origin/$BASE_BRANCH..$BRANCH 2>/dev/null || true)
+    if [ -z "$COMMITS" ]; then
+        echo "Error: Could not find commits between $BASE_BRANCH and $BRANCH" >&2 # Send to stderr
+        return 1
+    fi
 fi
 
 # Extract external links from commit messages
