@@ -10,16 +10,18 @@ if ! git show-ref --verify --quiet refs/heads/$BRANCH; then
     return 1
 fi
 
+git checkout $BRANCH
+
 # Get the commits with message between main and the branch
 # If fails, retry with origin/master
-BASE_BRANCH="main"
-COMMITS=$(git log --oneline origin/$BASE_BRANCH..$BRANCH 2>/dev/null || true)
+local BASE_BRANCH="main"
+local COMMITS=$(git log --oneline $BASE_BRANCH..$BRANCH 2>/dev/null || true)
 if [ -z "$COMMITS" ]; then
-    echo "Failed to get commits between origin/$BASE_BRANCH and $BRANCH, retry with origin/master" >&2 # Send to stderr
+    echo "Failed to get commits between $BASE_BRANCH and $BRANCH, retry with master" >&2
     BASE_BRANCH="master"
-    COMMITS=$(git log --oneline origin/$BASE_BRANCH..$BRANCH 2>/dev/null || true)
+    COMMITS=$(git log --oneline $BASE_BRANCH..$BRANCH 2>/dev/null || true)
     if [ -z "$COMMITS" ]; then
-        echo "Error: Could not find commits between $BASE_BRANCH and $BRANCH" >&2 # Send to stderr
+        echo "Error: Could not find commits between $BASE_BRANCH and $BRANCH" >&2
         return 1
     fi
 fi
@@ -96,5 +98,8 @@ if [ ! -z "$EXTERNAL_LINKS" ]; then
     BODY="$BODY"$'\n'"$EXTERNAL_LINKS"
 fi
 
+git checkout $BASE_BRANCH
+
 echo "Body: " >&2 # Send to stderr
+echo "$BODY"  >&2 # Send to stderr
 echo "$BODY"
