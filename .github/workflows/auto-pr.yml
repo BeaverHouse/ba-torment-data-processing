@@ -33,7 +33,10 @@ jobs:
       - name: Get PR body
         id: get-pr-body
         run: |
-          echo "pr_body=$(bash .github/scripts/make-pr-body.sh ${{ github.ref_name }})" >> $GITHUB_OUTPUT
+          PR_BODY=$(bash .github/scripts/make-pr-body.sh ${{ github.ref_name }})
+          echo "pr_body<<EOF" >> $GITHUB_OUTPUT
+          echo "$PR_BODY" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
 
       - name: Extract issue number and get labels
         id: get-issue
