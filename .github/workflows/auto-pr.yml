@@ -58,14 +58,23 @@ jobs:
       - name: Create Pull Request
         id: create-pr
         run: |
+          # Try to create PR, ignore error if PR already exists
           PR_LINK=$(gh pr create \
             --title "${{ steps.get-issue.outputs.issue_title }}" \
             --body "${{ steps.get-pr-body.outputs.pr_body }}" \
             --base main \
             --head "${{ github.ref_name }}" \
             --assignee "${{ github.actor }}" \
-            --label "${{ steps.get-issue.outputs.labels }}")
-          echo "pull-request-link=$PR_LINK" >> $GITHUB_OUTPUT
+            --label "${{ steps.get-issue.outputs.labels }}" 2>/dev/null || true)
+
+          # If PR creation failed (likely because it exists), get the existing PR
+          if [ -z "$PR_LINK" ]; then
+            PR_LINK=$(gh pr view "${{ github.ref_name }}" --json url --jq '.url' 2>/dev/null || true)
+          fi
+
+          if [ ! -z "$PR_LINK" ]; then
+            echo "pull-request-link=$PR_LINK" >> $GITHUB_OUTPUT
+          fi
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
