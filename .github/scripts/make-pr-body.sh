@@ -10,7 +10,7 @@ if ! git show-ref --verify --quiet refs/heads/$BRANCH; then
     return 1
 fi
 
-git checkout $BRANCH
+git checkout $BRANCH >&2
 
 # Get the commits with message between main and the branch
 # If fails, retry with origin/master
@@ -98,7 +98,7 @@ if [ ! -z "$EXTERNAL_LINKS" ]; then
     BODY="$BODY"$'\n'"$EXTERNAL_LINKS"
 fi
 
-git checkout $BASE_BRANCH
+git checkout $BASE_BRANCH >&2
 
 echo "Body: " >&2 # Send to stderr
 echo "$BODY"  >&2 # Send to stderr
