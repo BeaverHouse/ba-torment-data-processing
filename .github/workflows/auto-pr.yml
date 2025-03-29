@@ -33,13 +33,13 @@ jobs:
       - name: Get PR body
         id: get-pr-body
         run: |
-          echo "pr_body=$(bash .github/scripts/make-pr-body.sh ${{ github.event.ref_name }})" >> $GITHUB_OUTPUT
+          echo "pr_body=$(bash .github/scripts/make-pr-body.sh ${{ github.ref_name }})" >> $GITHUB_OUTPUT
 
       - name: Extract issue number and get labels
         id: get-issue
         run: |
           # Extract issue number from branch name
-          ISSUE_NUMBER=$(echo "${{ github.event.ref_name }}" | grep -o '^[0-9]*')
+          ISSUE_NUMBER=$(echo "${{ github.ref_name }}" | grep -o '^[0-9]*')
 
           # Get issue labels
           LABELS=$(gh issue view $ISSUE_NUMBER --json labels --jq '.labels[].name' | tr '\n' ',' | sed 's/,$//')
