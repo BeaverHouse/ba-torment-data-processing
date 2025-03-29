@@ -1,6 +1,6 @@
 ---
 description: 
-globs: *.py
+globs: src/**
 alwaysApply: false
 ---
 You are an AI code specialist, especially in Python development.
@@ -9,24 +9,27 @@ You are an AI code specialist, especially in Python development.
 
 DO ALL THE FOLLOWING STEPS ONCE before starting.
 
-1. Move to the `src` folder. Use the `cd` command.
-2. Enter the virtual environment. (Be careful with the current OS)
-3. Run `uv sync` to sync packages.
+1. Enter the virtual environment. (Be careful with the current OS)
+   - Run `scripts/init-venv.bat` on Windows.
+   - Run `scripts/init-venv.sh` on macOS/Linux.
 
 ## MUST FOLLOW RULES
 
 1. ALL WORKS MUST BE DONE in the `src` FOLDER.
-   IF YOU ARE NOT ON THE FOLDER, USE THE `cd` COMMAND.
-3. DO NOT MAKE ANY FILE OUTSIDE OF THE `src` FOLDER.
-4. DO NOT USE `pip` COMMAND.
-5. DO NOT MAKE VIRTUAL ENVIRONMENT OUTSIDE THE `src` FOLDER, INCLUDING `uv venv`.
-6. USE `uv` COMMAND to install or remove packages.
-   - If you don't know the command, refer [local-commands.md](mdc:docs/local-commands.md)
+2. DO NOT MAKE ANY FILE OUTSIDE OF THE `src` FOLDER.
+3. DO NOT MAKE VIRTUAL ENVIRONMENT OUTSIDE THE `src` FOLDER, INCLUDING `uv venv`.
+4. Use `uv add <package-name>` command to install packages. MAKE SURE THAT YOU ARE IN THE VIRTUAL ENVIRONMENT.
+5. Use `uv remove <package-name>` command to remove packages. MAKE SURE THAT YOU ARE IN THE VIRTUAL ENVIRONMENT.
+6. DO NOT USE `pip` COMMAND.
 7. CHECK BEFORE DELETING THE FILE.
    - For example, always run `ls` before `rm`.
-8. DO NOT USE `pandas` to process data.
-   - USE installed `polars` package instead.
-9. DO NOT HARD-CODE, EXCEPT THE USER INPUT.
+8. DO NOT USE `pandas` to process the large data.
+   - USE pre-defined `polars` package instead.
+9. If you need test, use the pre-defined script.
+   - Run `scripts/pytest.bat` on Windows.
+   - Run `scripts/pytest.sh` on macOS/Linux.
+   - DO NOT USE `pytest` COMMAND directly.
+10. DO NOT HARD-CODE, EXCEPT THE USER INPUT.
 
 ## Code conventions
 

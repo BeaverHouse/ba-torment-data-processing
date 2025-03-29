@@ -5,7 +5,7 @@ from parse_arona_ai.run import parse_arona_ai_party_data, parse_arona_ai_summary
 def test_arona_ai_party_data():
     """This function test can be run using the following command:
     
-    python -m pytest tests/test_arona_ai.py::test_arona_ai_party_data -v
+    pytest tests/test_arona_ai.py::test_arona_ai_party_data -v
     """
     season = "S74"
     
@@ -59,7 +59,7 @@ def test_arona_ai_party_data():
 def test_arona_ai_summary_data():
     """This function test can be run using the following command:
     
-    python -m pytest tests/test_arona_ai.py::test_arona_ai_summary_data -v
+    pytest tests/test_arona_ai.py::test_arona_ai_summary_data -v
     """
     season = "S74"
 
