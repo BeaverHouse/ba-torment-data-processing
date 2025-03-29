@@ -53,18 +53,22 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      # Using Peter Evans' action (GitHub Staff) for reliable PR creation
+      # GitHub CLI is recommended for creating PRs with existing branches
+      # https://github.com/peter-evans/create-pull-request/blob/main/docs/common-issues.md#create-using-an-existing-branch-as-the-pr-branch
       - name: Create Pull Request
         id: create-pr
-        uses: peter-evans/create-pull-request@v7
-        with:
-          title: ${{ steps.get-issue.outputs.issue_title }}
-          body: ${{ steps.get-pr-body.outputs.pr_body }}
-          branch: ${{ github.ref_name }}
-          assignees: ${{ github.actor }}
-          delete-branch: true
-          draft: false
-          labels: ${{ steps.get-issue.outputs.labels }}
+        run: |
+          PR_NUMBER=$(gh pr create \
+            --title "${{ steps.get-issue.outputs.issue_title }}" \
+            --body "${{ steps.get-pr-body.outputs.pr_body }}" \
+            --base main \
+            --head "${{ github.ref_name }}" \
+            --assignee "${{ github.actor }}" \
+            --label "${{ steps.get-issue.outputs.labels }}" \
+            --json number --jq '.number')
+          echo "pull-request-number=$PR_NUMBER" >> $GITHUB_OUTPUT
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Enable Auto-merge
         if: steps.create-pr.outputs.pull-request-number
