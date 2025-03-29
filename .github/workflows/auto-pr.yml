@@ -48,6 +48,12 @@ jobs:
           LABELS=$(gh issue view $ISSUE_NUMBER --json labels --jq '.labels[].name' | tr '\n' ',' | sed 's/,$//')
           TITLE=$(gh issue view $ISSUE_NUMBER --json title --jq '.title')
 
+          # Replace 'Bug' with 'Fix' in labels
+          LABELS=$(echo "$LABELS" | sed 's/Bug/Fix/g')
+
+          # Replace 'bug:' with 'fix:' in title
+          TITLE=$(echo "$TITLE" | sed 's/^bug:/fix:/i')
+
           echo "issue_title=$TITLE" >> $GITHUB_OUTPUT
           echo "labels=$LABELS" >> $GITHUB_OUTPUT
         env:
