@@ -60,7 +60,8 @@ jobs:
         with:
           title: ${{ steps.get-issue.outputs.issue_title }}
           body: ${{ steps.get-pr-body.outputs.pr_body }}
-          branch: main
+          branch: ${{ github.ref_name }}
+          base: main
           delete-branch: true
           draft: false
           labels: ${{ steps.get-issue.outputs.labels }}
