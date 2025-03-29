@@ -7,26 +7,34 @@
 
 ## uv Commands
 
-### Create a virtual environment
-
-```bash
-cd src && uv sync
-```
-
-### Enter the virtual environment
-
-Assume that you are in the `src` directory.
+### Initialize the virtual environment
 
 On Windows:
 
 ```cmd
-.venv\Scripts\activate
+.\scripts\init-venv.bat
 ```
 
 On macOS/Linux:
 
 ```bash
-source .venv/bin/activate
+./scripts/init-venv.sh
+```
+
+Then, you can configure the virtual environment in Cursor (VS Code) to run the code directly in the IDE.
+
+### Enter the virtual environment
+
+On Windows:
+
+```cmd
+.\src\.venv\Scripts\activate
+```
+
+On macOS/Linux:
+
+```bash
+source src/.venv/bin/activate
 ```
 
 ### Add the package (after entering the virtual environment)
@@ -43,24 +51,43 @@ uv remove <package_name>
 
 If you need other commands, please refer to the [uv documentation](https://docs.astral.sh/uv/getting-started/features/).
 
+<br />
+<br />
+
 ## pytest Commands
 
+### Run all tests without entering the virtual environment
+
+On Windows:
+
+```cmd
+.\scripts\pytest.bat
+```
+
+On macOS/Linux:
+
+```bash
+./scripts/pytest.sh
+```
+
 ### Run the test (after entering the virtual environment)
+
+Assume that you are in the `src` directory.
 
 To run all tests:
 
 ```bash
-python -m pytest tests/
+pytest
 ```
 
 To run a specific test, for example:
 
 ```bash
-python -m pytest tests/test_arona_ai.py::test_arona_ai -v
+pytest tests/test_arona_ai.py::test_arona_ai_party_data -v
 ```
 
 If you need to view more detailed logs, you can use the following command:
 
 ```bash
-python -m pytest -s tests/test_arona_ai.py::test_arona_ai -vv
+pytest -s tests/test_arona_ai.py::test_arona_ai_party_data -vv
 ```
