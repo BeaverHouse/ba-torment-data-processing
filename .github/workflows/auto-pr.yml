@@ -62,6 +62,7 @@ jobs:
           body: ${{ steps.get-pr-body.outputs.pr_body }}
           branch: ${{ github.ref_name }}
           base: main
+          assignees: ${{ github.actor }}
           delete-branch: true
           draft: false
           labels: ${{ steps.get-issue.outputs.labels }}
