@@ -9,7 +9,7 @@ ISSUE_NUMBER=$(echo "$BRANCH" | grep -o '^[0-9]*')
 BASE_BRANCH="main"
 COMMITS=$(git log --oneline origin/$BASE_BRANCH..$BRANCH)
 if [ -z "$COMMITS" ]; then
-    echo "Failed to get commits between origin/$BASE_BRANCH and $BRANCH, retry with origin/master"
+    echo "Failed to get commits between origin/$BASE_BRANCH and $BRANCH, retry with origin/master" >&2 # Send to stderr
     BASE_BRANCH="master"
     COMMITS=$(git log --oneline origin/$BASE_BRANCH..$BRANCH)
 fi
@@ -86,5 +86,5 @@ if [ ! -z "$EXTERNAL_LINKS" ]; then
     BODY="$BODY"$'\n'"$EXTERNAL_LINKS"
 fi
 
-echo "Body: "
+echo "Body: " >&2 # Send to stderr
 echo "$BODY"
