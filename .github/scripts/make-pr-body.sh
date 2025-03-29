@@ -14,21 +14,21 @@ git checkout $BRANCH
 
 # Get the commits with message between main and the branch
 # If fails, retry with origin/master
-local BASE_BRANCH="main"
-local COMMITS=$(git log --oneline $BASE_BRANCH..$BRANCH 2>/dev/null || true)
+BASE_BRANCH="main"
+COMMITS=$(git log --oneline origin/$BASE_BRANCH..HEAD 2>/dev/null || true)
 if [ -z "$COMMITS" ]; then
-    echo "Failed to get commits between $BASE_BRANCH and $BRANCH, retry with master" >&2
+    echo "Failed to get commits between origin/$BASE_BRANCH and $BRANCH, retry with origin/master" >&2
     BASE_BRANCH="master"
-    COMMITS=$(git log --oneline $BASE_BRANCH..$BRANCH 2>/dev/null || true)
+    COMMITS=$(git log --oneline origin/$BASE_BRANCH..HEAD 2>/dev/null || true)
     if [ -z "$COMMITS" ]; then
-        echo "Error: Could not find commits between $BASE_BRANCH and $BRANCH" >&2
+        echo "Error: Could not find commits between origin/$BASE_BRANCH and $BRANCH" >&2
         return 1
     fi
 fi
 
 # Extract external links from commit messages
 # Remove Korean text after URLs
-EXTERNAL_LINKS=$(git log --reverse --pretty=format:"%b" $BASE_BRANCH..$BRANCH | \
+EXTERNAL_LINKS=$(git log --reverse --pretty=format:"%b" origin/$BASE_BRANCH..HEAD | \
     grep -o 'https\?://[^[:space:]]*' | \
     perl -CSD -pe 's/[\x{AC00}-\x{D7A3}].*$//g' | \
     grep -v '^$' | \
@@ -39,7 +39,7 @@ EXTERNAL_LINKS=$(git log --reverse --pretty=format:"%b" $BASE_BRANCH..$BRANCH | 
 #    - The latest commit is at the bottom.
 #    - The format contains the commit title and description.
 #    - Skip empty commit messages
-COMMIT_BODY=$(git log --reverse --pretty=format:"TITLE:%s%nBODY:%b%nEND" $BASE_BRANCH..$BRANCH | \
+COMMIT_BODY=$(git log --reverse --pretty=format:"TITLE:%s%nBODY:%b%nEND" origin/$BASE_BRANCH..HEAD | \
     awk '
     BEGIN { title = ""; body = ""; in_body = 0; first_line = 1 }
     /^TITLE:/ { 
