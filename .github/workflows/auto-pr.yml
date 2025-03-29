@@ -76,11 +76,11 @@ jobs:
             echo "pull-request-link=$PR_LINK" >> $GITHUB_OUTPUT
           fi
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GH_PAT_REPO }}
 
       - name: Enable Auto-merge
         if: steps.create-pr.outputs.pull-request-link
         run: |
           gh pr merge ${{ steps.create-pr.outputs.pull-request-link }} --auto --squash
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GH_PAT_REPO }}
