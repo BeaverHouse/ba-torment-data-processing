@@ -72,6 +72,6 @@ jobs:
       - name: Enable Auto-merge
         if: steps.create-pr.outputs.pull-request-link
         run: |
-          gh pr merge ${{ steps.create-pr.outputs.pull-request-link }} --auto --merge
+          gh pr merge ${{ steps.create-pr.outputs.pull-request-link }} --auto --squash
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
