@@ -25,7 +25,7 @@ def get_youtube_channel_from_video_url(video_url: str) -> str:
             print(f"Error extracting channel URL: {e}")
             return ""
 
-def get_youtube_channel_username(video_url: str) -> str:
+def get_youtube_channel_username_from_video_url(video_url: str) -> str:
     """
     YouTube 영상 URL을 입력받아 채널 사용자명을 반환합니다.
     

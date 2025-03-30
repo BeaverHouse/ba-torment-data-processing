@@ -1,4 +1,4 @@
-from update_youtube.logic import get_youtube_channel_from_video_url, get_youtube_channel_username
+from update_youtube.logic import get_youtube_channel_from_video_url, get_youtube_channel_username_from_video_url
 
 def test_get_youtube_channel_from_video_url():
     """
@@ -17,11 +17,11 @@ def test_get_youtube_channel_from_video_url():
     for video_url, channel_url in zip(video_urls, channel_urls):
         assert get_youtube_channel_from_video_url(video_url) == channel_url
 
-def test_get_youtube_channel_username():
+def test_get_youtube_channel_username_from_video_url():
     """
     This function test can be run using the following command:
     
-    pytest tests/test_youtube_url.py::test_get_youtube_channel_username -v
+    pytest tests/test_youtube_url.py::test_get_youtube_channel_username_from_video_url -v
     """
     video_urls = (
         "https://www.youtube.com/embed/JpnNFe1k9zA?feature=shared",
@@ -32,5 +32,5 @@ def test_get_youtube_channel_username():
         "kkbn"
     )
     for video_url, username in zip(video_urls, usernames):
-        assert get_youtube_channel_username(video_url) == username
+        assert get_youtube_channel_username_from_video_url(video_url) == username
 
