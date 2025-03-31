@@ -11,3 +11,6 @@ wheels/
 
 # Test files
 **/tests/files/*
+
+# Environment variables
+.env*
